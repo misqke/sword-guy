@@ -222,13 +222,21 @@ const getPlayer = () => {
       if (leftButton.hasPoint(touch)) {
         player.left = true;
         player.right = false;
+        player.dir = -1;
         player.flipX(true);
         leftButton.opacity = 1;
+        if (player.curAnim() !== "attack" || player.curAnim() !== "takeHit") {
+          player.play("move");
+        }
       } else if (rightButton.hasPoint(touch)) {
         player.left = false;
         player.right = true;
+        player.dir = 1;
         player.flipX(false);
         rightButton.opacity = 1;
+        if (player.curAnim() !== "attack" || player.curAnim() !== "takeHit") {
+          player.play("move");
+        }
       } else if (aButton.hasPoint(touch)) {
         attack();
       } else if (bButton.hasPoint(touch)) {
@@ -242,9 +250,15 @@ const getPlayer = () => {
       } else if (leftButton.hasPoint(touch)) {
         player.left = false;
         leftButton.opacity = 0.5;
+        if (player.curAnim() !== "attack" || player.curAnim() !== "takeHit") {
+          player.play("idle");
+        }
       } else if (rightButton.hasPoint(touch)) {
         player.right = false;
         rightButton.opacity = 0.5;
+        if (player.curAnim() !== "attack" || player.curAnim() !== "takeHit") {
+          player.play("idle");
+        }
       }
     });
   }
@@ -267,6 +281,9 @@ const getPlayer = () => {
     k.camPos(player.pos);
     if (player.left || player.right) {
       move();
+    }
+    if (!player.curAnim()) {
+      player.play("idle");
     }
   });
 
