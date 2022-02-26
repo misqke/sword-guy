@@ -1,17 +1,17 @@
 import k from "./kaboom.js";
 
 // mobile controls
-k.loadSprite("left-button", "/sprites/controls/left-button.png");
-k.loadSprite("right-button", "/sprites/controls/right-button.png");
-k.loadSprite("a-button", "/sprites/controls/a-button.png");
-k.loadSprite("b-button", "/sprites/controls/b-button.png");
+k.loadSprite("left-button", "sprites/controls/left-button.png");
+k.loadSprite("right-button", "sprites/controls/right-button.png");
+k.loadSprite("a-button", "sprites/controls/a-button.png");
+k.loadSprite("b-button", "sprites/controls/b-button.png");
 
-k.loadSprite("tiles", "/sprites/terrain/Tileset.png", {
+k.loadSprite("tiles", "sprites/terrain/Tileset.png", {
   sliceX: 10,
   sliceY: 6,
 });
 
-k.loadSprite("acid", "/sprites/terrain/acid.png", {
+k.loadSprite("acid", "sprites/terrain/acid.png", {
   sliceX: 8,
   sliceY: 2,
   anims: {
@@ -30,9 +30,9 @@ k.loadSprite("acid", "/sprites/terrain/acid.png", {
   },
 });
 
-k.loadSprite("door", "/sprites/terrain/doorway.png");
+k.loadSprite("door", "sprites/terrain/doorway.png");
 
-k.loadSprite("skelly", "/sprites/enemies/skelly.png", {
+k.loadSprite("skelly", "sprites/enemies/skelly.png", {
   sliceX: 13,
   sliceY: 5,
   anims: {

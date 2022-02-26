@@ -3,7 +3,7 @@ import k from "./kaboom.js";
 const SPEED = 200;
 const JUMP_FORCE = 600;
 
-k.loadSprite("warrior", "/sprites/warrior.png", {
+k.loadSprite("warrior", "sprites/warrior.png", {
   sliceX: 16,
   sliceY: 7,
   anims: {
