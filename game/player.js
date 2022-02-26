@@ -221,9 +221,13 @@ const getPlayer = () => {
     k.onTouchStart((pos, touch) => {
       if (leftButton.hasPoint(touch)) {
         player.left = true;
+        player.right = false;
+        player.flipX(true);
         leftButton.opacity = 1;
       } else if (rightButton.hasPoint(touch)) {
+        player.left = false;
         player.right = true;
+        player.flipX(false);
         rightButton.opacity = 1;
       } else if (aButton.hasPoint(touch)) {
         attack();
