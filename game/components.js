@@ -1,6 +1,11 @@
 import k from "./kaboom.js";
 
-export function enemy(distance = 100, speed = 100, dir = 1, damage = 2) {
+export function enemy(
+  distance = randi(80, 120),
+  speed = randi(90, 110),
+  dir = 1,
+  damage = randi(2, 3)
+) {
   return {
     id: "enemy",
     require: ["area"],
@@ -11,10 +16,11 @@ export function enemy(distance = 100, speed = 100, dir = 1, damage = 2) {
       this.onAnimEnd("death", () => {
         this.destroy();
         this.unuse("body");
+        this.unuse("enemy");
       });
       k.timer();
       this.startingPos = this.pos;
-      this.onCollide(["enemy"], () => {
+      this.onCollide(["badguy", "ground"], () => {
         this.left = !this.left;
         dir = -dir;
       });
@@ -25,6 +31,7 @@ export function enemy(distance = 100, speed = 100, dir = 1, damage = 2) {
       });
       this.onDeath(() => {
         this.dead = true;
+        damage = 0;
       });
 
       this.onCollide("player", (p) => {
@@ -42,7 +49,7 @@ export function enemy(distance = 100, speed = 100, dir = 1, damage = 2) {
     },
     attack() {
       this.play("attack");
-      wait(0.5, () => {
+      wait(0.1, () => {
         const attackBox = k.add([
           k.rect(this.area.width, this.area.height),
           k.area({ width: this.area.width, height: this.area.height }),
@@ -95,11 +102,41 @@ export function enemy(distance = 100, speed = 100, dir = 1, damage = 2) {
         this.flipX(false);
       }
       if (this.curAnim() === "move") {
-        if (Math.abs(this.pos.x - this.startingPos.x) > distance) {
-          this.left = !this.left;
-          dir = -dir;
+        if (this.left) {
+          if (this.startingPos.x - this.pos.x > distance) {
+            this.left = false;
+            dir = 1;
+          }
+        }
+        if (!this.left) {
+          if (this.pos.x - this.startingPos.x > distance) {
+            this.left = true;
+            dir = -1;
+          }
         }
         this.move(speed * dir, 0);
+      }
+    },
+  };
+}
+
+export function elevator() {
+  return {
+    id: "elevator",
+    require: ["body"],
+    startingPos: vec2(0, 0),
+    dir: -1,
+    add() {
+      this.startingPos = this.pos;
+      k.timer();
+    },
+    update() {
+      this.move(0, 5 * dir);
+      if (this.startingPos.y - this.pos.y > 100) {
+        this.dir = 1;
+      }
+      if (this.startingPos.y - this.pos.y <= 0) {
+        this.dir = -1;
       }
     },
   };

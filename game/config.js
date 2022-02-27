@@ -1,5 +1,5 @@
 import k from "./kaboom.js";
-import { enemy } from "./components.js";
+import { enemy, elevator } from "./components.js";
 
 const config = {
   width: 32,
@@ -22,6 +22,13 @@ const config = {
   "(": () => [k.sprite("tiles", { frame: 31 }), k.area(), k.solid(), "ground"],
   "^": () => [k.sprite("tiles", { frame: 32 }), k.area(), k.solid(), "ground"],
   ")": () => [k.sprite("tiles", { frame: 33 }), k.area(), k.solid(), "ground"],
+  "@": () => [
+    k.sprite("tiles", { frame: 30 }),
+    k.area(),
+    k.body(),
+    elevator(),
+    "ground",
+  ],
   "$": () => [
     k.sprite("acid", { animSpeed: 1, anim: "top" }),
     k.area(),
